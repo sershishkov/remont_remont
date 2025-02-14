@@ -530,3 +530,16 @@ export interface I_CashFlow {
   additionalInformation: string;
   creator: Types.ObjectId | I_User | string;
 }
+///////////////////////////////////////////
+///////////////////////////////////////////
+export interface I_Koshtoris {
+  _id?: string;
+  koshtorisNumber: string;
+  koshtorisDate: Date;
+  ourFirm: Types.ObjectId | I_Client | string;
+  client: Types.ObjectId | I_Client | string;
+  responsiblePerson: Types.ObjectId | I_Worker | string;
+  additionalInformation: string;
+  creator: Types.ObjectId | I_User | string;
+  isActive: boolean;
+}
