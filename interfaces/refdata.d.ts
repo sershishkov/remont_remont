@@ -583,6 +583,10 @@ export interface I_Calculation {
 
   isWorkOrHelp: 'work' | 'help';
 
+  natsenkaTovara: number;
+  natsenkaServiceWork: number;
+  natsenkaThirdParty: number;
+
   creator: Types.ObjectId | I_User | string;
   isActive: boolean;
 }
