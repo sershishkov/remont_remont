@@ -532,14 +532,57 @@ export interface I_CashFlow {
 }
 ///////////////////////////////////////////
 ///////////////////////////////////////////
-export interface I_Koshtoris {
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+export interface I_CalculationType {
   _id?: string;
-  koshtorisNumber: string;
-  koshtorisDate: Date;
+  calculationTypeName: string;
+  calculationTypeTitle: string;
+  // ['Общий',"Цоколь , окна пластик, двери пластик, гибкая черепица, швы межпанельные, швы межпанельные,асфальт, кровля мягкая, кровля жесткая, кровля металлочерепица, кровля шифер,тротуарная плитка ...
+}
+export interface I_Calculation {
+  _id?: string;
+  calculationNumber: string;
+  calculationDate: Date;
+  calculationType: Types.ObjectId | I_CalculationType | string;
   ourFirm: Types.ObjectId | I_Client | string;
   client: Types.ObjectId | I_Client | string;
-  responsiblePerson: Types.ObjectId | I_Worker | string;
-  additionalInformation: string;
+  contractDescription: string;
+  workAddress: string;
+  contractType: Types.ObjectId | I_ContractType | string;
+  paymentTerms: string;
+  responsibleManager: Types.ObjectId | I_Worker | string;
+  additionalInformation: string; //Дополнительная информация например "сроки действия сметы"
+  prepaymentPercentage: number;
+
+  proectnSumBudjet: number;
+  avtorskSumBudjet: number;
+  expertizaSumBudjet: number;
+  tehnadzorSumBudjet: number;
+
+  products: I_ProductInNakl[];
+  thirdPartyServices: I_ThirdPartyServiceInAkt[];
+  serviceWorks: I_ServiceWorkInAkt[];
+
+  totalSums?: {
+    totalThirdPartySum: string;
+    totalServiceWorkSum: string;
+    totalAktSum: string;
+
+    totalNaklSum: string;
+    totalKoshtorisSum: string;
+
+    totalExtraDocumsSum: string;
+    koshtorisSumWithExtraDocums: string;
+  };
+
+  additionalСostsSum: number;
+  additionalСostsPercent: number;
+
+  isWorkOrHelp: 'work' | 'help';
+
   creator: Types.ObjectId | I_User | string;
   isActive: boolean;
 }

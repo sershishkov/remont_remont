@@ -27,8 +27,9 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import {
-  all_roles,
-  calculation_services_links,
+  manager_role,
+  manager_refData_links,
+  manager_Docums_links,
   admin_links,
 } from '@/constants/constants';
 
@@ -141,14 +142,23 @@ function NavigationList({
         groupIcon={AdminPanelSettingsIcon}
         itemIcon={InboxIcon}
       />
-
       <ListItemCollapse
-        caption='Расчеты'
+        caption='Справочники Менедж'
         toggleDrawer={toggleDrawer}
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         userRole={user?.role!}
-        allowedRoles={all_roles}
-        linksToShow={calculation_services_links}
+        allowedRoles={manager_role}
+        linksToShow={manager_refData_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
+      <ListItemCollapse
+        caption='Документы'
+        toggleDrawer={toggleDrawer}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        userRole={user?.role!}
+        allowedRoles={manager_role}
+        linksToShow={manager_Docums_links}
         groupIcon={GroupIcon}
         itemIcon={InboxIcon}
       />
