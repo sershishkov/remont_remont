@@ -542,8 +542,11 @@ export interface I_CalculationType {
   calculationTypeTitle: string;
   // ['Общий',"Цоколь , окна пластик, двери пластик, гибкая черепица, швы межпанельные, швы межпанельные,асфальт, кровля мягкая, кровля жесткая, кровля металлочерепица, кровля шифер,тротуарная плитка ...
 }
+
 export interface I_Calculation {
   _id?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tableOfMeasurements: any[];
   calculationNumber: string;
   calculationDate: Date;
   calculationType: Types.ObjectId | I_CalculationType | string;
