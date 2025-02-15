@@ -18,11 +18,15 @@ interface LinkToShow {
 
 interface LocalProps {
   readonly caption: string;
-  readonly toggleDrawer: Function;
+  readonly toggleDrawer: (
+    open: boolean
+  ) => (event: React.KeyboardEvent | React.MouseEvent) => void;
   readonly userRole: string;
   readonly allowedRoles: string[];
   readonly linksToShow: LinkToShow[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly groupIcon: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly itemIcon: any;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 'use client';
 
 import React, { useState } from 'react';
@@ -28,8 +29,11 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import {
   manager_role,
+  accountant_role,
   manager_refData_links,
   manager_Docums_links,
+  accountant_refData_links,
+  accountant_Money_links,
   admin_links,
 } from '@/constants/constants';
 
@@ -159,6 +163,26 @@ function NavigationList({
         userRole={user?.role!}
         allowedRoles={manager_role}
         linksToShow={manager_Docums_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
+      <ListItemCollapse
+        caption='Справочники Бух'
+        toggleDrawer={toggleDrawer}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        userRole={user?.role!}
+        allowedRoles={accountant_role}
+        linksToShow={accountant_refData_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
+
+      <ListItemCollapse
+        caption='Движ Средств'
+        toggleDrawer={toggleDrawer}
+        userRole={user?.role!}
+        allowedRoles={accountant_role}
+        linksToShow={accountant_Money_links}
         groupIcon={GroupIcon}
         itemIcon={InboxIcon}
       />
