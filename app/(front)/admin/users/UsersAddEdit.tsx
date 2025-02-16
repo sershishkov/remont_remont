@@ -111,7 +111,13 @@ function UsersAddEdit({
   };
 
   return (
-    <Grid component='form' onSubmit={onSubmit} container direction='column'>
+    <Grid
+      component='form'
+      onSubmit={onSubmit}
+      container
+      direction='column'
+      sx={{ width: '100%', maxWidth: '500px', margin: 'auto' }}
+    >
       <Grid>
         <Typography variant='h3' align='center'>
           {title}

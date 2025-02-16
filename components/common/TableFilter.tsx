@@ -143,7 +143,7 @@ function TableSimple({
         <MySpinner />
       ) : (
         <Grid sx={{ width: '100%' }}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ height: '750px' }}>
             <Table
               stickyHeader
               sx={{

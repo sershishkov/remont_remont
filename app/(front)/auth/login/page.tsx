@@ -71,6 +71,11 @@ const Login = () => {
       container
       className='root'
       direction='column'
+      sx={{
+        width: '100%',
+        maxWidth: '500px',
+        margin: 'auto',
+      }}
     >
       <Grid>
         <Typography variant='h3' align='center'>
@@ -131,7 +136,7 @@ const Login = () => {
       <Grid container justifyContent='center' alignItems='center'>
         <Grid container justifyContent='center' alignItems='center'>
           <Grid>
-            <Link href='/api/auth/register' variant='body2'>
+            <Link href='/auth/register' variant='body2'>
               {'Еще не зарегестрированы? Регистрация'}
             </Link>
           </Grid>

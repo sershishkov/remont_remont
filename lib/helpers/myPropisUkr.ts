@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapNumbers: any = {
   0: [2, 1, ' '],
   1: [0, 2, 'один', 'одна'],
@@ -55,8 +56,9 @@ const objKop = {
   _arrStates: ['копійка', 'копійки', 'копійок'],
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Value(dVal: number, bGender: any) {
-  let xVal = mapNumbers[dVal];
+  const xVal = mapNumbers[dVal];
   if (xVal[1] === 1) {
     return xVal[2];
   } else {
@@ -64,6 +66,7 @@ function Value(dVal: number, bGender: any) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function From0To999(fValue: any, oObjDesc: any, fnAddNum: any, fnAddDesc: any) {
   let nCurrState = 2;
   let fCurr: number;
@@ -98,8 +101,9 @@ function From0To999(fValue: any, oObjDesc: any, fnAddNum: any, fnAddDesc: any) {
 export function FloatToSamplesInWordsUkr(enteredNumber: number): string {
   const fAmount = isNaN(enteredNumber) ? 0 : enteredNumber;
   let fInt = Math.floor(fAmount + 0.005);
-  let fDec = Math.floor((fAmount - fInt) * 100 + 0.5);
+  const fDec = Math.floor((fAmount - fInt) * 100 + 0.5);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const arrRet: any[] = [];
 
   const arrSouthands = [];
@@ -110,6 +114,7 @@ export function FloatToSamplesInWordsUkr(enteredNumber: number): string {
     arrSouthands.push(0);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function PushToRes(strVal: any) {
     arrRet.push(strVal);
   }

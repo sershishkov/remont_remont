@@ -89,6 +89,7 @@ const Register = () => {
       container
       className='root'
       direction='column'
+      sx={{ width: '100%', maxWidth: '500px', margin: 'auto' }}
     >
       <Grid>
         <Typography variant='h3' align='center'>
@@ -187,7 +188,7 @@ const Register = () => {
       <Grid>
         <Grid container justifyContent='center' alignItems='center'>
           <Grid>
-            <Link href='/api/auth/login' variant='body2'>
+            <Link href='/auth/login' variant='body2'>
               {'Уже зарегестрированы? Вход'}
             </Link>
           </Grid>

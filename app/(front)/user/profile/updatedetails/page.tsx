@@ -86,7 +86,7 @@ const UserEditDetails = () => {
     <Grid
       container
       direction='column'
-      sx={{ margin: '0 auto', maxWidth: '500px' }}
+      sx={{ width: '100%', maxWidth: '500px', margin: 'auto' }}
     >
       <Grid sx={{ mb: 5 }}>
         <Typography variant='h3' align='center'>

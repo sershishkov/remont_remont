@@ -47,15 +47,7 @@ function Navbar() {
             <NavigationList toggleDrawer={toggleDrawer} />
           </SwipeableDrawer>
 
-          <Link
-            href='/'
-            sx={{
-              //  flexGrow: 1,
-              color: '#fff',
-            }}
-          >
-            Калькуляция{' '}
-          </Link>
+          <Link href='/'>Калькуляция </Link>
         </Toolbar>
       </AppBar>
     </Box>

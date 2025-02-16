@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 'use client';
 
 import React, { useState } from 'react';
@@ -11,7 +10,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+// import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
@@ -71,7 +70,7 @@ function NavigationList({
         <List disablePadding>
           {user ? (
             <>
-              <ListItemButton
+              {/* <ListItemButton
                 // sx={{ pl: 4 }}
                 component={Link}
                 href='/user'
@@ -81,7 +80,7 @@ function NavigationList({
                   <QuestionMarkIcon />
                 </ListItemIcon>
                 <ListItemText primary='Информация' />
-              </ListItemButton>
+              </ListItemButton> */}
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
@@ -180,6 +179,7 @@ function NavigationList({
       <ListItemCollapse
         caption='Движ Средств'
         toggleDrawer={toggleDrawer}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         userRole={user?.role!}
         allowedRoles={accountant_role}
         linksToShow={accountant_Money_links}

@@ -1,14 +1,31 @@
-import Link from 'next/link';
+import Grid from '@mui/material/Grid2';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 
 export default function Denied() {
   return (
-    <section>
-      <h1 style={{ color: 'white' }}>Access Denied</h1>
-      <p>
-        You are logged in, but you do not have the required access level to view
-        this page.
-      </p>
-      <Link href='/'>Return to Home Page</Link>
-    </section>
+    <Grid
+      container
+      flexDirection='column'
+      justifyContent='center'
+      alignItems='center'
+      id='denied'
+      sx={{ height: '750px' }}
+    >
+      <Grid>
+        <Typography variant='h2' align='center'>
+          Access Denied (Доступ запрещен)
+        </Typography>
+      </Grid>
+      <Grid sx={{ mt: 5 }}>
+        <Typography variant='h6' align='center'>
+          Вы вошли в систему, но у вас нет необходимого уровня доступа для
+          просмотра этой страницы.
+        </Typography>
+      </Grid>
+      <Grid sx={{ mt: 5 }}>
+        <Link href='/'>На главную</Link>
+      </Grid>
+    </Grid>
   );
 }

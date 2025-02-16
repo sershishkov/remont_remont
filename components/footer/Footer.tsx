@@ -15,29 +15,26 @@ function Footer() {
   return (
     <Grid
       container
+      flexDirection='column'
+      justifyContent='center'
+      alignItems='center'
       id='footer'
       sx={{ display: isShowFooter ? 'block' : 'none' }}
     >
-      <Grid
-        container
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Grid>
-          <Typography variant='h6'>Ремонт любой сложности для ОСББ</Typography>
-        </Grid>
+      <Grid>
+        <Typography variant='h6' align='center'>
+          Ремонт любой сложности для ОСББ
+        </Typography>
       </Grid>
-
-      <Grid
-        container
-        flexDirection='column'
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Grid component={Link} href='tel:+380502279650'>
-          <Typography variant='h6'>+380502279650</Typography>
-        </Grid>
+      <Grid component={Link} href='tel:+380502279650'>
+        <Typography variant='h6' align='center'>
+          +380502279650
+        </Typography>
+      </Grid>
+      <Grid component={Link} href='tel:+380502279650'>
+        <Typography variant='h6' align='center'>
+          +380972279650
+        </Typography>
       </Grid>
     </Grid>
   );
