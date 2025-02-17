@@ -27,6 +27,9 @@ import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const initState = {
   unit: '',
   thirdPartyServiceGroup: [],
@@ -75,6 +78,9 @@ export default function ThirdServShow({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
   const [arr__Units, setArr__Units] = useState([]);
@@ -170,30 +176,41 @@ export default function ThirdServShow({
       alignItems='center'
       direction='column'
       sx={{
-        maxWidth: 1200,
-        minWidth: 600,
+        // border: '1px solid red',
+        padding: matches ? '0 5rem' : '3rem 0.5rem',
+        width: '100%',
+        margin: 'auto',
       }}
     >
-      <Grid sx={{ width: '100%' }}>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        spacing={1}
+        sx={{ width: '100%' }}
+      >
         <Grid
-          container
-          alignItems='center'
-          justifyContent='space-between'
-          spacing={1}
+          sx={{
+            flex: 1,
+            // border: '1px solid yellow',
+            width: matches ? undefined : '100%',
+          }}
         >
-          <Grid sx={{ flex: 1 }}>
-            <TextField
-              margin='normal'
-              focused
-              fullWidth
-              id='searchText'
-              name='searchText'
-              label='Строка поиска'
-              type='search'
-              value={searchText ?? ''}
-              onChange={onChangeSearch}
-            />
-          </Grid>
+          <TextField
+            margin='normal'
+            focused
+            fullWidth
+            id='searchText'
+            name='searchText'
+            label='Строка поиска'
+            type='search'
+            value={searchText ?? ''}
+            onChange={onChangeSearch}
+          />
+        </Grid>
+
+        <Grid container alignItems='center'>
           <Grid sx={{ width: 120 }}>
             <MySelectAutoCompl
               selectName={`unit`}
@@ -215,7 +232,8 @@ export default function ThirdServShow({
               arrToSelect={arr__ThirdPartyServiceGroups}
             />
           </Grid>
-
+        </Grid>
+        <Grid container alignItems='center'>
           <Grid>
             <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
           </Grid>
@@ -231,11 +249,12 @@ export default function ThirdServShow({
           </Grid>
         </Grid>
       </Grid>
+
       {!resultFetch || resultFetch?.length === 0 ? (
         <MySpinner />
       ) : (
         <Grid sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 750 }}>
             <Table
               stickyHeader
               sx={{

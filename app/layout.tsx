@@ -26,7 +26,7 @@ export default function RootLayout({
     <AuthProvider>
       <ThemeProvider theme={theme_dark}>
         <CssBaseline />
-        <html lang='en'>
+        <html lang='en' suppressHydrationWarning>
           <body suppressHydrationWarning>
             <ToastProvider>
               <Navbar />

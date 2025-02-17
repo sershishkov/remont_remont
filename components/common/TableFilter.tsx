@@ -24,6 +24,9 @@ import Typography from '@mui/material/Typography';
 
 import MySpinner from '@/components/common/MySpinner';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 function TableSimple({
   headerFields,
   tableFields,
@@ -35,6 +38,8 @@ function TableSimple({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [searchText, setSearchText] = useState('');
   const [resultFetch, setResultFetch] = useState({
     items: [],
@@ -112,38 +117,47 @@ function TableSimple({
       direction='column'
       sx={{
         // border: '1px solid yellow',
-        margin: 'auto',
-        padding: ' 0 5rem',
+        padding: matches ? '0 5rem' : undefined,
         width: '100%',
-        // maxWidth: 1200,
-        minWidth: 600,
       }}
     >
-      <Grid sx={{ width: '100%' }}>
-        <Grid container alignItems='center' justifyContent='space-between'>
-          <Grid size={9}>
-            <TextField
-              margin='normal'
-              focused
-              fullWidth
-              id='searchText'
-              name='searchText'
-              label='searchText'
-              type='search'
-              value={searchText}
-              onChange={onChangeSearch}
-            />
-          </Grid>
-          <Grid size={3}>
-            <Typography align='center'>{`Найдено:${resultFetch.items?.length}`}</Typography>
-          </Grid>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        sx={{
+          // border: '1px solid blue',
+          width: '100%',
+          marginTop: matches ? undefined : '3rem',
+        }}
+      >
+        <Grid size={matches ? 9 : 12}>
+          <TextField
+            margin='normal'
+            focused
+            fullWidth
+            id='searchText'
+            name='searchText'
+            label='searchText'
+            type='search'
+            value={searchText}
+            onChange={onChangeSearch}
+          />
+        </Grid>
+        <Grid size={matches ? 3 : 12}>
+          <Typography align='center'>{`Найдено:${resultFetch.items?.length}`}</Typography>
         </Grid>
       </Grid>
+
       {!resultFetch?.items || resultFetch?.items.length === 0 ? (
         <MySpinner />
       ) : (
         <Grid sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ height: '750px' }}>
+          <TableContainer
+            component={Paper}
+            sx={{ height: '750px', width: '100%' }}
+          >
             <Table
               stickyHeader
               sx={{
