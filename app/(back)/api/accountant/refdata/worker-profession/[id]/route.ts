@@ -5,13 +5,13 @@ import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worke
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export const GET = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
     const one__ITEM = await Model__WorkerProfession.findById(id);
@@ -39,7 +39,7 @@ export const GET = async (request: NextRequest, { params }: Props) => {
 };
 
 export const PUT = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   const { workerProfessionName, description } = await request.json();
 
   if (!workerProfessionName || !description) {
@@ -82,7 +82,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 };
 
 export const DELETE = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
 

@@ -6,13 +6,13 @@ import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export const GET = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
     const one__ITEM = await Model__ThirdPartyService.findById(id)
@@ -45,7 +45,7 @@ export const GET = async (request: NextRequest, { params }: Props) => {
 };
 
 export const PUT = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   const myData = await request.json();
   if (!myData) {
     return new NextResponse(
@@ -97,7 +97,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 };
 
 export const DELETE = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
     const one__ITEM = await Model__ThirdPartyService.findByIdAndDelete(id);

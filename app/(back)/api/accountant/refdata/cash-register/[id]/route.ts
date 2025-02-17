@@ -6,13 +6,13 @@ import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worke
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export const GET = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
     const one__ITEM = await Model__CashRegister.findById(id).populate({
@@ -44,7 +44,7 @@ export const GET = async (request: NextRequest, { params }: Props) => {
 };
 
 export const PUT = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   const myData = await request.json();
   if (!myData) {
     return new NextResponse(
@@ -88,7 +88,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 };
 
 export const DELETE = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
 

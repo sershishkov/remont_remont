@@ -5,8 +5,8 @@ export interface MyRequestParams {
   filter?: Object;
 }
 
-export interface paramsProps {
-  params: {
+export interface ParamsProps {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }

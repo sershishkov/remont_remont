@@ -7,13 +7,13 @@ import Model__ClientType from '@/lib/mongoose/models/accountant/refData/Model__C
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export const GET = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
     const one__ITEM = await Model__Client.findById(id)
@@ -56,7 +56,7 @@ export const GET = async (request: NextRequest, { params }: Props) => {
 };
 
 export const PUT = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   const myData = await request.json();
 
   if (!myData) {
@@ -159,7 +159,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 };
 
 export const DELETE = async (request: NextRequest, { params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   try {
     await connectToDB();
     const one__ITEM = await Model__Client.findByIdAndDelete(id);
