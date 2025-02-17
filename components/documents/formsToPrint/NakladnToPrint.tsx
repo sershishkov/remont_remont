@@ -48,7 +48,8 @@ function NakladnToPrint({
     }
   );
   const contractDateToString = new Date(
-    contractObj.contractDate! ?? ''
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    contractObj?.contractDate! ?? ''
   ).toLocaleDateString('uk-UA', {
     day: '2-digit',
     month: 'long',
@@ -57,7 +58,8 @@ function NakladnToPrint({
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  const ourFirm = `${ourFirmObj.firmType!.firmTypeShortName!} « ${
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const ourFirm = `${ourFirmObj?.firmType!.firmTypeShortName!} « ${
     ourFirmObj?.clientShortName
   } », ${ourFirmObj?.edrpou ? `ЄДРПОУ :${ourFirmObj?.edrpou}` : ''} ${
     ourFirmObj?.inn ? `ІНН :${ourFirmObj?.inn}` : ''
@@ -68,7 +70,8 @@ function NakladnToPrint({
   const ourIBAN = ourFirmObj?.iban;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  const ourTaxationType = `${ourFirmObj.firmType!.firmTypeShortName!} « ${
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const ourTaxationType = `${ourFirmObj?.firmType!.firmTypeShortName!} « ${
     ourFirmObj?.clientShortName
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
@@ -76,7 +79,8 @@ function NakladnToPrint({
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  const payerFirm = `${clientObj.firmType!.firmTypeShortName!} « ${
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const payerFirm = `${clientObj?.firmType!.firmTypeShortName!} « ${
     clientObj?.clientShortName
   } », ${clientObj?.edrpou ? `ЄДРПОУ :${clientObj?.edrpou}` : ''} ${
     clientObj?.inn ? `ІНН :${clientObj?.inn}` : ''

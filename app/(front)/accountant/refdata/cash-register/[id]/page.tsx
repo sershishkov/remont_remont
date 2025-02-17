@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import CashRegisterAddEdit from '../CashRegisterAddEdit';
 
 const title = 'Редактировать Кассу';
@@ -8,7 +8,9 @@ export const metadata: Metadata = {
   title: title,
 };
 
-export default function CashRegisterEdit({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default async function CashRegisterEdit({
+  params,
+}: Readonly<ParamsProps>) {
+  const { id } = await params;
   return <CashRegisterAddEdit id={id} mode='edit' title={title} />;
 }

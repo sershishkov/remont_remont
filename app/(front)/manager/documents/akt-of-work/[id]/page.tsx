@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import AktAddEdit from '../AktAddEdit';
 
 const title = 'Редактировать Акт';
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: title,
 };
 
-export default function AktOfWorkEdit({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default async function AktOfWorkEdit({ params }: Readonly<ParamsProps>) {
+  const { id } = await params;
   return <AktAddEdit id={id} mode='edit' title={title} />;
 }

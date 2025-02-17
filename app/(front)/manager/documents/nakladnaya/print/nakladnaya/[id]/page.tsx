@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { item__get_one } from '@/lib/actions/refdata.actions';
 import NakladnToPrint from '@/components/documents/formsToPrint/NakladnToPrint';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import { I_Contract, I_Client, I_ProductInNakl } from '@/interfaces/refdata';
 
 const currentURL = '/manager/documents/nakladnaya';
@@ -15,8 +15,8 @@ const initState = {
   tableRows: [],
 };
 
-function NakladnayaPrint({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+function NakladnayaPrint({ params }: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [formData, setFormData] = useState(initState);
 
   const [localOurFirmObj, setLocalOurFirmObj] = useState<I_Client>();
@@ -73,7 +73,7 @@ function NakladnayaPrint({ params }: Readonly<paramsProps>) {
           setFormData((prevState) => ({
             ...prevState,
             nakladnayaNumber: item.nakladnayaNumber,
-            nakladnayaDate: new Date(item.nakladnayaDate!),
+            nakladnayaDate: new Date(item.nakladnayaDate),
             naklSum: Number(item.totalNaklSum),
             typeNakl: item.typeNakl,
             tableRows: arrToSetRows,

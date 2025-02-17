@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
 import InvoiceToPrint from '@/components/documents/formsToPrint/InvoiceToPrint';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import {
   I_Contract,
   I_Client,
@@ -23,8 +23,8 @@ const initState = {
   aktSum: 0,
 };
 
-export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default function InvoiceAktPrint({ params }: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [formData, setFormData] = useState(initState);
   const [tableRows, setTableRows] = useState<I_WorkRows[] | I_LProduct[]>([]);
 

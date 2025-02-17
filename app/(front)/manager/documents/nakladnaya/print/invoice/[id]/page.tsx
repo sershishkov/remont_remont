@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { item__get_one } from '@/lib/actions/refdata.actions';
 import InvoiceToPrint from '@/components/documents/formsToPrint/InvoiceToPrint';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import { I_Contract, I_Client, I_ProductInNakl } from '@/interfaces/refdata';
 
 const currentURL = '/manager/documents/nakladnaya';
@@ -17,8 +17,8 @@ const initState = {
 
 export default function InvoiceNakladnayaPrint({
   params,
-}: Readonly<paramsProps>) {
-  const { id } = params;
+}: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [formData, setFormData] = useState(initState);
 
   const [localOurFirmObj, setLocalOurFirmObj] = useState<I_Client>();

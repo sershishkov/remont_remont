@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import NaklAddEdit from '../../NaklAddEdit';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 
 const title = 'Создать Накладную';
 
@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   title: title,
 };
 
-export default function DocumentNakladnayaAddContractID({
+export default async function DocumentNakladnayaAddContractID({
   params,
-}: Readonly<paramsProps>) {
-  const { id } = params;
+}: Readonly<ParamsProps>) {
+  const { id } = await params;
   return <NaklAddEdit mode='add' title={title} contractID={id} />;
 }

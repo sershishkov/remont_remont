@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import KoshtorisToPrint from '@/components/documents/formsToPrint/KoshtorisToPrint';
 import {
   I_Contract,
@@ -23,11 +23,11 @@ const initState = {
   aktSum: 0,
 };
 
-export default function KoshtorisPrint({ params }: Readonly<paramsProps>) {
+export default function KoshtorisPrint({ params }: Readonly<ParamsProps>) {
   const searchParam = useSearchParams();
   const mode = searchParam.get('mode');
 
-  const { id } = params;
+  const { id } = React.use(params);
   const [formData, setFormData] = useState(initState);
   const [tableAktRows, setTableAktRows] = useState<I_WorkRows[]>([]);
   const [tableNaklRows, setTableNaklRows] = useState<I_LProduct[]>([]);

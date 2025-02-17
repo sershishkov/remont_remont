@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import ProductsAddEdit from '../ProductsAddEdit';
 
 const title = 'Редактировать Товар';
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: title,
 };
 
-export default function ProductsEdit({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default async function ProductsEdit({ params }: Readonly<ParamsProps>) {
+  const { id } = await params;
   return <ProductsAddEdit id={id} mode='edit' title={title} />;
 }

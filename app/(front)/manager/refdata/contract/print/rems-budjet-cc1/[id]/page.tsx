@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useLayoutEffect } from 'react';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import { I_Contract, I_Client } from '@/interfaces/refdata';
 import { item__get_one } from '@/lib/actions/refdata.actions';
 
 import RemsBudjetCc1ToPrint from '@/components/documents/formsToPrint/rems-budjet/RemsBudjetCc1ToPrint';
 
-export default function RemsBudjetCc1Print({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default function RemsBudjetCc1Print({ params }: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [currentContract, setCurrentContract] = useState<I_Contract>();
 
   const [currentClient, setCurrentClient] = useState<I_Client>();

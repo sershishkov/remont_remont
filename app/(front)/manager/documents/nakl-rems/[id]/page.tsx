@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import NaklRemsAddEdit from '../NaklRemsAddEdit';
 
 const title = 'Редактировать Накладную';
@@ -8,7 +8,9 @@ export const metadata: Metadata = {
   title: title,
 };
 
-export default function NakladnayaRemsEdit({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default async function NakladnayaRemsEdit({
+  params,
+}: Readonly<ParamsProps>) {
+  const { id } = await params;
   return <NaklRemsAddEdit id={id} mode='edit' title={title} />;
 }

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import JkhTrebPoSmeteAvkToPrint from '@/components/documents/formsToPrint/jkh-proectn-avtorsk/JkhTrebPoSmeteAvkToPrint';
 import {
   I_Contract,
@@ -17,8 +17,8 @@ import {
 
 export default function TrebovaniePoSmeteAvkPrint({
   params,
-}: Readonly<paramsProps>) {
-  const { id } = params;
+}: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [tableAktRows, setTableAktRows] = useState<I_WorkRows[]>([]);
   const [tableNaklRows, setTableNaklRows] = useState<I_LProduct[]>([]);
   const [currentExecutor, setCurrentExecutor] = useState<I_Client>();

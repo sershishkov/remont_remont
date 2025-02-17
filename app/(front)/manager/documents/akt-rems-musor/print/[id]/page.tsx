@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { item__get_one } from '@/lib/actions/refdata.actions';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 
 import AktRemsMusorToPrint from '@/components/documents/formsToPrint/rems-potochn/AktRemsMusorToPrint';
 import {
@@ -10,8 +10,8 @@ import {
   I_AktRemsMusor,
 } from '@/interfaces/refdata';
 
-export default function AktRemsMusorPrint({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+export default function AktRemsMusorPrint({ params }: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [currentExecutor, setCurrentExecutor] = useState<I_Client>();
   const [currentClient, setCurrentClient] = useState<I_Client>();
   const [aktRemsMusorNumber, setAktRemsMusorNumber] = useState('');

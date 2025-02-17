@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
 import AktToPrint from '@/components/documents/formsToPrint/AktToPrint';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import {
   I_Contract,
   I_Client,
@@ -23,8 +23,8 @@ const initState = {
   aktSum: 0,
 };
 
-function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
-  const { id } = params;
+function AktOfWorkPrint({ params }: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [formData, setFormData] = useState(initState);
   const [tableRows, setTableRows] = useState<I_WorkRows[]>([]);
 
@@ -72,7 +72,7 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
           setFormData((prevState) => ({
             ...prevState,
             aktOfWorkNumber: item.aktOfWorkNumber,
-            aktOfWorkDate: new Date(item.aktOfWorkDate!),
+            aktOfWorkDate: new Date(item.aktOfWorkDate),
             typeAkt: item.typeAkt,
             aktSum: Number(item.totalSums.totalAktSum),
           }));

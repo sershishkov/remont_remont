@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import WorkerProfAddEdit from '../WorkerProfAddEdit';
 
 const title = 'Редактировать Профессию';
@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   title: title,
 };
 
-export default function WorkerProfessionEdit({
+export default async function WorkerProfessionEdit({
   params,
-}: Readonly<paramsProps>) {
-  const { id } = params;
+}: Readonly<ParamsProps>) {
+  const { id } = await params;
   return <WorkerProfAddEdit id={id} mode='edit' title={title} />;
 }

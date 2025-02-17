@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useLayoutEffect } from 'react';
-import { paramsProps } from '@/interfaces/CommonInterfaces';
+import { ParamsProps } from '@/interfaces/CommonInterfaces';
 import { I_Contract, I_Client, I_CalendarnGrafik } from '@/interfaces/refdata';
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
 
@@ -8,8 +8,8 @@ import RemsBudjetJurnalRabotToPrint from '@/components/documents/formsToPrint/re
 
 export default function RemsBudjetJurnalRabotPrint({
   params,
-}: Readonly<paramsProps>) {
-  const { id } = params;
+}: Readonly<ParamsProps>) {
+  const { id } = React.use(params);
   const [currentContract, setCurrentContract] = useState<I_Contract>();
   const [currentCalendarnGrafik, setCurrentCalendarnGrafik] =
     useState<I_CalendarnGrafik>();
