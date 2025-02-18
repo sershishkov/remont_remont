@@ -13,6 +13,8 @@ import Grid from '@mui/material/Grid2';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const currentURL = '/manager/refdata/thirdpartyservice-group';
 
@@ -21,6 +23,13 @@ function ThirdServGroupAddEdit({
   mode,
   title,
 }: Readonly<{ id?: string; mode: string; title: string }>) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const route = useRouter();
 
   const [thirdPartyServiceGroupName, setThirdPartyServiceGroupName] =
@@ -61,11 +70,26 @@ function ThirdServGroupAddEdit({
       await item__edit(created__Data, currentURL, route);
     }
   };
+  if (!isClient) {
+    return null;
+  }
 
   return (
-    <Grid component='form' onSubmit={onSubmit} container direction='column'>
+    <Grid
+      component='form'
+      onSubmit={onSubmit}
+      container
+      direction='column'
+      sx={{
+        // border: '1px solid yellow',
+        padding: matches ? '0 2rem' : '0 0.5rem',
+        maxWidth: '500px',
+        margin: 'auto',
+        width: '100%',
+      }}
+    >
       <Grid>
-        <Typography variant='h3' align='center'>
+        <Typography variant={matches ? 'h4' : 'h6'} align='center'>
           {title}
         </Typography>
       </Grid>
