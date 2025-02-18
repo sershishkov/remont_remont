@@ -27,6 +27,9 @@ import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const initState = {
   unit: '',
   serviceWorkGroup: [],
@@ -126,6 +129,8 @@ export default function ServiceWorkShow({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
   const [arr__Units, setArr__Units] = useState([]);
@@ -269,56 +274,34 @@ export default function ServiceWorkShow({
       alignItems='center'
       direction='column'
       sx={{
-        maxWidth: 1200,
-        minWidth: 600,
+        // border: '1px solid red',
+        padding: matches ? '0 5rem' : '3rem 0.5rem',
+        width: '100%',
+        margin: 'auto',
       }}
     >
-      <Grid sx={{ width: '100%' }}>
-        <Grid
-          container
-          alignItems='center'
-          justifyContent='space-between'
-          spacing={1}
-        >
-          <Grid sx={{ flex: 1 }}>
-            <TextField
-              margin='normal'
-              focused
-              fullWidth
-              id='searchText'
-              name='searchText'
-              label='Строка поиска'
-              type='search'
-              value={searchText ?? ''}
-              onChange={onChangeSearch}
-            />
-          </Grid>
-          <Grid sx={{ width: 120 }}>
-            <MySelectAutoCompl
-              selectName={`unit`}
-              selectLabel={`Ед.изм`}
-              fieldToShow={`unitName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={unit ?? ''}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__Units}
-            />
-          </Grid>
-
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`serviceWorkGroup`}
-              selectLabel={`Группы работ`}
-              fieldToShow={`serviceWorkGroupName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={serviceWorkGroup ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__ServiceWorkGroups}
-            />
-          </Grid>
-
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        spacing={1}
+        sx={{ width: '100%' }}
+      >
+        <Grid sx={{ flex: 1, width: matches ? undefined : '100%' }}>
+          <TextField
+            margin='normal'
+            focused
+            fullWidth
+            id='searchText'
+            name='searchText'
+            label='Строка поиска'
+            type='search'
+            value={searchText ?? ''}
+            onChange={onChangeSearch}
+          />
+        </Grid>
+        <Grid container alignItems='center' spacing={1}>
           <Grid>
             <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
           </Grid>
@@ -334,81 +317,107 @@ export default function ServiceWorkShow({
           </Grid>
         </Grid>
       </Grid>
-      <Grid sx={{ width: '100%' }}>
-        <Grid
-          container
-          alignItems='center'
-          justifyContent='space-between'
-          spacing={1}
-        >
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`products`}
-              selectLabel={`Материалы`}
-              fieldToShow={`productName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={products ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__Materials}
-            />
-          </Grid>
 
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`inventars`}
-              selectLabel={`Инвентарь`}
-              fieldToShow={`productName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={inventars ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__Inventars}
-            />
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`tools`}
-              selectLabel={`Инструмент`}
-              fieldToShow={`productName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={tools ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__Tools}
-            />
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`equipment`}
-              selectLabel={`Оборудование`}
-              fieldToShow={`productName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={equipment ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__Equipments}
-            />
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`workerProtection`}
-              selectLabel={`Средства защиты`}
-              fieldToShow={`productName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={workerProtection ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__WorkerProtections}
-            />
-          </Grid>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        spacing={1}
+        sx={{ width: '100%' }}
+      >
+        {' '}
+        <Grid sx={{ width: matches ? 120 : '100%' }}>
+          <MySelectAutoCompl
+            selectName={`unit`}
+            selectLabel={`Ед.изм`}
+            fieldToShow={`unitName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={unit ?? ''}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__Units}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`serviceWorkGroup`}
+            selectLabel={`Группы работ`}
+            fieldToShow={`serviceWorkGroupName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={serviceWorkGroup ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__ServiceWorkGroups}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`products`}
+            selectLabel={`Материалы`}
+            fieldToShow={`productName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={products ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__Materials}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`inventars`}
+            selectLabel={`Инвентарь`}
+            fieldToShow={`productName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={inventars ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__Inventars}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`tools`}
+            selectLabel={`Инструмент`}
+            fieldToShow={`productName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={tools ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__Tools}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`equipment`}
+            selectLabel={`Оборудование`}
+            fieldToShow={`productName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={equipment ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__Equipments}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`workerProtection`}
+            selectLabel={`Средства защиты`}
+            fieldToShow={`productName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={workerProtection ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__WorkerProtections}
+          />
         </Grid>
       </Grid>
+
       {!resultFetch || resultFetch?.length === 0 ? (
         <MySpinner />
       ) : (
         <Grid sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 650 }}>
             <Table
               stickyHeader
               sx={{
