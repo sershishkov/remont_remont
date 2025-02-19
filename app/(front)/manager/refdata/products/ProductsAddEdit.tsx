@@ -22,6 +22,9 @@ import AddIcon from '@mui/icons-material/Add';
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const currentURL = '/manager/refdata/products';
 const initState = {
   productName: '',
@@ -44,6 +47,8 @@ function ProductsEdit({
   mode,
   title,
 }: Readonly<{ id?: string; mode: string; title: string }>) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
@@ -184,9 +189,16 @@ function ProductsEdit({
       container
       direction='column'
       autoComplete='off'
+      sx={{
+        // border: '1px solid yellow',
+        padding: matches ? '0 2rem' : '0 0.5rem',
+        maxWidth: '500px',
+        margin: 'auto',
+        width: '100%',
+      }}
     >
       <Grid>
-        <Typography variant='h3' align='center'>
+        <Typography variant={matches ? 'h4' : 'h6'} align='center'>
           {title}
         </Typography>
       </Grid>

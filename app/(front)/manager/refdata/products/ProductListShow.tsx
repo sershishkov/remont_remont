@@ -27,6 +27,9 @@ import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const initState = {
   unit: '',
   productType: '',
@@ -79,6 +82,8 @@ export default function ProductListShow({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
   const [arr__Units, setArr__Units] = useState([]);
@@ -180,68 +185,78 @@ export default function ProductListShow({
       alignItems='center'
       direction='column'
       sx={{
-        maxWidth: 1200,
-        minWidth: 600,
+        // border: '1px solid red',
+        padding: matches ? '0 5rem' : '3rem 0.5rem',
+        width: '100%',
+        margin: 'auto',
       }}
     >
-      <Grid sx={{ width: '100%' }}>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        spacing={1}
+        sx={{ width: '100%' }}
+      >
+        <Grid sx={{ flex: 1, width: matches ? undefined : '100%' }}>
+          <TextField
+            margin='normal'
+            focused
+            fullWidth
+            id='searchText'
+            name='searchText'
+            label='Строка поиска'
+            type='search'
+            value={searchText ?? ''}
+            onChange={onChangeSearch}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 120 : '100%' }}>
+          <MySelectAutoCompl
+            selectName={`unit`}
+            selectLabel={`Ед.изм`}
+            fieldToShow={`unitName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={unit ?? ''}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__Units}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectAutoCompl
+            selectName={`productType`}
+            selectLabel={`Тип товара`}
+            fieldToShow={`productTypeName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={productType ?? ''}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__ProductTypes}
+          />
+        </Grid>
+
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`productGroup`}
+            selectLabel={`Группы товаров`}
+            fieldToShow={`productGroupName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={productGroup ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__ProductGroups}
+          />
+        </Grid>
         <Grid
           container
           alignItems='center'
-          justifyContent='space-between'
           spacing={1}
+          direction={`row`}
+          sx={{ width: '100%' }}
+          justifyContent={`space-between`}
         >
-          <Grid sx={{ flex: 1 }}>
-            <TextField
-              margin='normal'
-              focused
-              fullWidth
-              id='searchText'
-              name='searchText'
-              label='Строка поиска'
-              type='search'
-              value={searchText ?? ''}
-              onChange={onChangeSearch}
-            />
-          </Grid>
-          <Grid sx={{ width: 120 }}>
-            <MySelectAutoCompl
-              selectName={`unit`}
-              selectLabel={`Ед.изм`}
-              fieldToShow={`unitName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={unit ?? ''}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__Units}
-            />
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <MySelectAutoCompl
-              selectName={`productType`}
-              selectLabel={`Тип товара`}
-              fieldToShow={`productTypeName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={productType ?? ''}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__ProductTypes}
-            />
-          </Grid>
-
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`productGroup`}
-              selectLabel={`Группы товаров`}
-              fieldToShow={`productGroupName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={productGroup ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__ProductGroups}
-            />
-          </Grid>
-
           <Grid>
             <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
           </Grid>
@@ -257,11 +272,12 @@ export default function ProductListShow({
           </Grid>
         </Grid>
       </Grid>
+
       {!resultFetch || resultFetch?.length === 0 ? (
         <MySpinner />
       ) : (
         <Grid sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 650 }}>
             <Table
               stickyHeader
               sx={{
