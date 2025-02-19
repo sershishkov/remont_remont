@@ -27,6 +27,9 @@ import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoC
 
 import { I_ClientType, I_FirmType, I_TaxationType } from '@/interfaces/refdata';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const currentURL = '/manager/refdata/client';
 const initState = {
   clientLongName: '',
@@ -67,6 +70,8 @@ function ClientAddEdit({
   mode,
   title,
 }: Readonly<{ id?: string; mode: string; title: string }>) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
@@ -293,9 +298,16 @@ function ClientAddEdit({
       container
       direction='column'
       autoComplete='off'
+      sx={{
+        // border: '1px solid yellow',
+        padding: matches ? '0 2rem' : '0 0.5rem',
+        maxWidth: '500px',
+        margin: 'auto',
+        width: '100%',
+      }}
     >
       <Grid className='item item-heading'>
-        <Typography variant='h3' align='center'>
+        <Typography variant={matches ? 'h4' : 'h6'} align='center'>
           {title}
         </Typography>
       </Grid>

@@ -27,6 +27,9 @@ import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const initState = {
   firmType: '',
   taxationType: '',
@@ -82,6 +85,8 @@ export default function ClientsShow({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
   const [arr__FirmTypes, setArr__FirmTypes] = useState([]);
@@ -183,68 +188,77 @@ export default function ClientsShow({
       alignItems='center'
       direction='column'
       sx={{
-        // maxWidth: 1200,
-        minWidth: 600,
+        // border: '1px solid red',
+        padding: matches ? '0 5rem' : '3rem 0.5rem',
+        width: '100%',
+        margin: 'auto',
       }}
     >
-      <Grid sx={{ width: '100%' }}>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        spacing={1}
+        sx={{ width: '100%' }}
+      >
+        <Grid sx={{ flex: 1, width: matches ? undefined : '100%' }}>
+          <TextField
+            margin='normal'
+            focused
+            fullWidth
+            id='searchText'
+            name='searchText'
+            label='Строка поиска'
+            type='search'
+            value={searchText ?? ''}
+            onChange={onChangeSearch}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 120 : '100%' }}>
+          <MySelectAutoCompl
+            selectName={`firmType`}
+            selectLabel={`Тип фирмы`}
+            fieldToShow={`firmTypeShortName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={firmType ?? ''}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__FirmTypes}
+          />
+        </Grid>
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectAutoCompl
+            selectName={`taxationType`}
+            selectLabel={`Налоги`}
+            fieldToShow={`taxationTypeName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={taxationType ?? ''}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__TaxationTypes}
+          />
+        </Grid>
+
+        <Grid sx={{ width: matches ? 200 : '100%' }}>
+          <MySelectMultipleAutoCompl
+            selectName={`clientType`}
+            selectLabel={`Тип клиента`}
+            fieldToShow={`clientTypeName`}
+            handleChangeMultipleSelects={handleChangeSelects}
+            selectedOptions={clientType ?? []}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__ClientTypes}
+          />
+        </Grid>
         <Grid
           container
           alignItems='center'
-          justifyContent='space-between'
           spacing={1}
+          justifyContent={`space-between`}
+          sx={{ width: '100%' }}
         >
-          <Grid sx={{ flex: 1 }}>
-            <TextField
-              margin='normal'
-              focused
-              fullWidth
-              id='searchText'
-              name='searchText'
-              label='Строка поиска'
-              type='search'
-              value={searchText ?? ''}
-              onChange={onChangeSearch}
-            />
-          </Grid>
-          <Grid sx={{ width: 120 }}>
-            <MySelectAutoCompl
-              selectName={`firmType`}
-              selectLabel={`Тип фирмы`}
-              fieldToShow={`firmTypeShortName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={firmType ?? ''}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__FirmTypes}
-            />
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <MySelectAutoCompl
-              selectName={`taxationType`}
-              selectLabel={`Налоги`}
-              fieldToShow={`taxationTypeName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={taxationType ?? ''}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__TaxationTypes}
-            />
-          </Grid>
-
-          <Grid sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`clientType`}
-              selectLabel={`Тип клиента`}
-              fieldToShow={`clientTypeName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={clientType ?? []}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              arrToSelect={arr__ClientTypes}
-            />
-          </Grid>
-
           <Grid>
             <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
           </Grid>
@@ -260,11 +274,12 @@ export default function ClientsShow({
           </Grid>
         </Grid>
       </Grid>
+
       {!resultFetch || resultFetch?.length === 0 ? (
         <MySpinner />
       ) : (
         <Grid sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 650 }}>
             <Table
               stickyHeader
               sx={{
