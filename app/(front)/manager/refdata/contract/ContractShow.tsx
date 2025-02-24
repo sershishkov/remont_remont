@@ -29,6 +29,8 @@ import Typography from '@mui/material/Typography';
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const initState = {
   ourFirm: '',
@@ -117,6 +119,14 @@ export default function ContractShow({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
 
@@ -267,37 +277,50 @@ export default function ContractShow({
     setSearchText('');
   };
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <Grid
       container
       alignItems='center'
       direction='column'
       sx={{
-        // maxWidth: 1200,
-        minWidth: 600,
+        // border: '1px solid red',
+        padding: matches ? '0 5rem' : '3rem 0.5rem',
+        width: '100%',
+        margin: 'auto',
       }}
     >
-      <Grid sx={{ width: '100%' }}>
+      <Grid
+        container
+        alignItems='center'
+        justifyContent='space-between'
+        direction={matches ? 'row' : 'column'}
+        spacing={1}
+        sx={{ width: '100%' }}
+      >
+        <Grid sx={{ flex: 1, width: matches ? undefined : '100%' }}>
+          <TextField
+            margin='normal'
+            focused
+            fullWidth
+            id='searchText'
+            name='searchText'
+            label='Строка поиска'
+            type='search'
+            value={searchText ?? ''}
+            onChange={onChangeSearch}
+          />
+        </Grid>
+
         <Grid
           container
           alignItems='center'
-          justifyContent='space-between'
-          spacing={1}
+          sx={{ width: matches ? undefined : '100%' }}
         >
-          <Grid sx={{ flex: 1 }}>
-            <TextField
-              margin='normal'
-              focused
-              fullWidth
-              id='searchText'
-              name='searchText'
-              label='Строка поиска'
-              type='search'
-              value={searchText ?? ''}
-              onChange={onChangeSearch}
-            />
-          </Grid>
-          <Grid sx={{ width: 150 }}>
+          <Grid sx={{ width: matches ? 150 : '45%' }}>
             <TextField
               margin='normal'
               // required
@@ -311,7 +334,7 @@ export default function ContractShow({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid sx={{ width: 150 }}>
+          <Grid sx={{ width: matches ? 150 : '45%' }}>
             <TextField
               margin='normal'
               // required
@@ -325,7 +348,13 @@ export default function ContractShow({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid sx={{ width: 150 }}>
+        </Grid>
+        <Grid
+          container
+          alignItems='center'
+          sx={{ width: matches ? undefined : '100%' }}
+        >
+          <Grid sx={{ width: matches ? 150 : '45%' }}>
             <MySelectAutoCompl
               selectName={`ourFirm`}
               selectLabel={`Наша`}
@@ -337,7 +366,7 @@ export default function ContractShow({
               arrToSelect={arr__OurFirms}
             />
           </Grid>
-          <Grid sx={{ width: 200 }}>
+          <Grid sx={{ width: matches ? 150 : '45%' }}>
             <MySelectAutoCompl
               selectName={`client`}
               selectLabel={`Клиент`}
@@ -349,7 +378,13 @@ export default function ContractShow({
               arrToSelect={arr__Clients}
             />
           </Grid>
-
+        </Grid>
+        <Grid
+          container
+          alignItems='center'
+          justifyContent={matches ? 'center' : 'space-between'}
+          sx={{ width: matches ? undefined : '100%' }}
+        >
           <Grid>
             <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
           </Grid>
@@ -364,16 +399,12 @@ export default function ContractShow({
             </IconButton>
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid sx={{ width: '100%' }}>
         <Grid
           container
           alignItems='center'
-          justifyContent='space-between'
-          spacing={1}
+          sx={{ width: matches ? undefined : '100%' }}
         >
-          <Grid sx={{ width: 200 }}>
+          <Grid sx={{ width: matches ? 200 : '100%' }}>
             <MySelectAutoCompl
               selectName={`contractType`}
               selectLabel={`Тип контракта`}
@@ -385,7 +416,7 @@ export default function ContractShow({
               arrToSelect={arr__ContractTypes}
             />
           </Grid>
-          <Grid sx={{ width: 200 }}>
+          <Grid sx={{ width: matches ? 200 : '100%' }}>
             <MySelectAutoCompl
               selectName={`paymentSource`}
               selectLabel={`Ист.Средств`}
@@ -397,7 +428,13 @@ export default function ContractShow({
               arrToSelect={arr__PaymentSources}
             />
           </Grid>
-          <Grid sx={{ width: 200 }}>
+        </Grid>
+        <Grid
+          container
+          alignItems='center'
+          sx={{ width: matches ? undefined : '100%' }}
+        >
+          <Grid sx={{ width: matches ? 200 : '100%' }}>
             <MySelectAutoCompl
               selectName={`responsibleManager`}
               selectLabel={`Отв.Менеджер`}
@@ -409,7 +446,7 @@ export default function ContractShow({
               arrToSelect={arr__Workers}
             />
           </Grid>
-          <Grid sx={{ width: 200 }}>
+          <Grid sx={{ width: matches ? 200 : '100%' }}>
             <MySelectAutoCompl
               selectName={`responsibleWorker`}
               selectLabel={`Отв.Работник`}
@@ -422,7 +459,7 @@ export default function ContractShow({
             />
           </Grid>
 
-          <Grid sx={{ width: 200 }}>
+          <Grid sx={{ width: matches ? 200 : '100%' }}>
             <MySelectMultipleAutoCompl
               selectName={`participants`}
               selectLabel={`Участники`}
@@ -435,6 +472,15 @@ export default function ContractShow({
             />
           </Grid>
         </Grid>
+      </Grid>
+
+      <Grid sx={{ width: '100%' }}>
+        <Grid
+          container
+          alignItems='center'
+          justifyContent='space-between'
+          spacing={1}
+        ></Grid>
       </Grid>
 
       {!resultFetch || resultFetch?.length === 0 ? (

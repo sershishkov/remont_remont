@@ -25,6 +25,8 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import { accountant_role } from '@/constants/constants';
@@ -121,6 +123,8 @@ export default function ContractAddEdit({
   mode,
   title,
 }: Readonly<{ id?: string; mode: string; title: string }>) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const route = useRouter();
   const session = useSession();
   const user = session?.data?.user;
@@ -772,194 +776,196 @@ export default function ContractAddEdit({
       container
       direction='column'
       autoComplete='off'
+      sx={{
+        // border: '1px solid yellow',
+        padding: matches ? '0 2rem' : '0 0.5rem',
+        maxWidth: '1200px',
+        margin: 'auto',
+        width: '100%',
+      }}
     >
-      <Grid>
-        <Grid
-          container
-          direction={`row`}
-          justifyContent={`space-between`}
-          alignItems={`center`}
-        >
-          <Grid>
-            <Typography variant='body2' align='center'>
-              {title}
-            </Typography>
-          </Grid>
-          <Grid>
-            <Button
-              type='submit'
-              fullWidth
-              disabled={
-                !contractNumber ||
-                !ourFirm ||
-                !client ||
-                !contractDate ||
-                !contractDescription ||
-                !workAddress ||
-                !contractType ||
-                !paymentSource ||
-                !responsibleManager ||
-                !responsibleWorker ||
-                mainParticipantSum < 0
-              }
-              variant='contained'
-            >
-              Сохранить
-            </Button>
-          </Grid>
+      <Grid
+        container
+        direction={`row`}
+        justifyContent={`space-between`}
+        alignItems={`center`}
+      >
+        <Grid>
+          <Typography variant='body2' align='center'>
+            {title}
+          </Typography>
+        </Grid>
+        <Grid>
+          <Button
+            type='submit'
+            fullWidth
+            disabled={
+              !contractNumber ||
+              !ourFirm ||
+              !client ||
+              !contractDate ||
+              !contractDescription ||
+              !workAddress ||
+              !contractType ||
+              !paymentSource ||
+              !responsibleManager ||
+              !responsibleWorker ||
+              mainParticipantSum < 0
+            }
+            variant='contained'
+          >
+            Сохранить
+          </Button>
         </Grid>
       </Grid>
-      <Grid>
-        <Grid
-          container
-          direction={`row`}
-          justifyContent={`space-between`}
-          alignItems={`center`}
-          spacing={1}
-        >
-          <Grid sx={{ width: 200 }}>
+
+      <Grid
+        container
+        direction={`row`}
+        justifyContent={`space-between`}
+        alignItems={`center`}
+        spacing={1}
+      >
+        <Grid sx={{ width: 200 }}>
+          <MySelectAutoCompl
+            selectName={`ourFirm`}
+            selectLabel={`Наша фирма`}
+            fieldToShow={`clientShortName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={ourFirm ?? ''}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            arrToSelect={arr__ourFirms ?? []}
+          />
+        </Grid>
+        <Grid sx={{ width: 300 }}>
+          <Stack
+            direction='row'
+            spacing={2}
+            // direction={{ xs: 'column', sm: 'row' }}
+          >
             <MySelectAutoCompl
-              selectName={`ourFirm`}
-              selectLabel={`Наша фирма`}
+              selectName={`client`}
+              selectLabel={`Клиент`}
               fieldToShow={`clientShortName`}
               handleChangeSelects={handleChangeSelects}
-              selectedOption={ourFirm ?? ''}
+              selectedOption={client ?? ''}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              arrToSelect={arr__ourFirms ?? []}
+              arrToSelect={arr__Clients ?? []}
             />
-          </Grid>
-          <Grid sx={{ width: 300 }}>
-            <Stack
-              direction='row'
-              spacing={2}
-              // direction={{ xs: 'column', sm: 'row' }}
-            >
-              <MySelectAutoCompl
-                selectName={`client`}
-                selectLabel={`Клиент`}
-                fieldToShow={`clientShortName`}
-                handleChangeSelects={handleChangeSelects}
-                selectedOption={client ?? ''}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                arrToSelect={arr__Clients ?? []}
-              />
 
-              <IconButton
-                onClick={() => onClickAddItem('/manager/refdata/client/add')}
-              >
-                <AddIcon color='success' sx={{ fontSize: 30 }} />
-              </IconButton>
-            </Stack>
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <Stack
-              direction='row'
-              spacing={1}
-              alignItems={`center`}
-              // direction={{ xs: 'column', sm: 'row' }}
+            <IconButton
+              onClick={() => onClickAddItem('/manager/refdata/client/add')}
             >
-              <MySelectAutoCompl
-                selectName={`contractType`}
-                selectLabel={`Тип контракта`}
-                fieldToShow={`contractTypeName`}
-                handleChangeSelects={handleChangeSelects}
-                selectedOption={contractType ?? ''}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                arrToSelect={arr__ContractTypes ?? []}
-              />
+              <AddIcon color='success' sx={{ fontSize: 30 }} />
+            </IconButton>
+          </Stack>
+        </Grid>
+        <Grid sx={{ width: 200 }}>
+          <Stack
+            direction='row'
+            spacing={1}
+            alignItems={`center`}
+            // direction={{ xs: 'column', sm: 'row' }}
+          >
+            <MySelectAutoCompl
+              selectName={`contractType`}
+              selectLabel={`Тип контракта`}
+              fieldToShow={`contractTypeName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={contractType ?? ''}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              arrToSelect={arr__ContractTypes ?? []}
+            />
 
-              <IconButton
-                onClick={() =>
-                  onClickAddItem('/accountant/refdata/contract-type/add')
-                }
-              >
-                <AddIcon color='success' sx={{ fontSize: 30 }} />
-              </IconButton>
-            </Stack>
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <Stack
-              direction='row'
-              spacing={1}
-              // direction={{ xs: 'column', sm: 'row' }}
+            <IconButton
+              onClick={() =>
+                onClickAddItem('/accountant/refdata/contract-type/add')
+              }
             >
-              <MySelectAutoCompl
-                selectName={`paymentSource`}
-                selectLabel={`Источник средств`}
-                fieldToShow={`paymentSourceName`}
-                handleChangeSelects={handleChangeSelects}
-                selectedOption={paymentSource ?? ''}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                arrToSelect={arr__PaymentSources ?? []}
-              />
+              <AddIcon color='success' sx={{ fontSize: 30 }} />
+            </IconButton>
+          </Stack>
+        </Grid>
+        <Grid sx={{ width: 200 }}>
+          <Stack
+            direction='row'
+            spacing={1}
+            // direction={{ xs: 'column', sm: 'row' }}
+          >
+            <MySelectAutoCompl
+              selectName={`paymentSource`}
+              selectLabel={`Источник средств`}
+              fieldToShow={`paymentSourceName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={paymentSource ?? ''}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              arrToSelect={arr__PaymentSources ?? []}
+            />
 
-              <IconButton
-                onClick={() =>
-                  onClickAddItem('/accountant/refdata/payment-source/add')
-                }
-              >
-                <AddIcon color='success' sx={{ fontSize: 30 }} />
-              </IconButton>
-            </Stack>
-          </Grid>
-
-          <Grid sx={{ width: 200 }}>
-            <Stack
-              direction='row'
-              spacing={1}
-              alignItems={`center`}
-              // direction={{ xs: 'column', sm: 'row' }}
+            <IconButton
+              onClick={() =>
+                onClickAddItem('/accountant/refdata/payment-source/add')
+              }
             >
-              <MySelectAutoCompl
-                selectName={`responsibleManager`}
-                selectLabel={`Отв.Менеджер`}
-                fieldToShow={`lastName`}
-                handleChangeSelects={handleChangeSelects}
-                selectedOption={responsibleManager ?? ''}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                arrToSelect={arr__Workers ?? []}
-              />
-              <Typography
-                variant='body2'
-                sx={{
-                  color: mainParticipantSum < 0 ? 'red' : 'green',
-                }}
-              >
-                {mainParticipantSum.toFixed(2)}%
-              </Typography>
-            </Stack>
-          </Grid>
-          <Grid sx={{ width: 200 }}>
-            <Stack
-              direction='row'
-              spacing={1}
-              // direction={{ xs: 'column', sm: 'row' }}
-            >
-              <MySelectAutoCompl
-                selectName={`responsibleWorker`}
-                selectLabel={`Отв.исполнитель`}
-                fieldToShow={`lastName`}
-                handleChangeSelects={handleChangeSelects}
-                selectedOption={responsibleWorker ?? ''}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                arrToSelect={arr__Workers ?? []}
-              />
+              <AddIcon color='success' sx={{ fontSize: 30 }} />
+            </IconButton>
+          </Stack>
+        </Grid>
 
-              <IconButton
-                onClick={() =>
-                  onClickAddItem('/accountant/refdata/workers/add')
-                }
-              >
-                <AddIcon color='success' sx={{ fontSize: 30 }} />
-              </IconButton>
-            </Stack>
-          </Grid>
+        <Grid sx={{ width: 200 }}>
+          <Stack
+            direction='row'
+            spacing={1}
+            alignItems={`center`}
+            // direction={{ xs: 'column', sm: 'row' }}
+          >
+            <MySelectAutoCompl
+              selectName={`responsibleManager`}
+              selectLabel={`Отв.Менеджер`}
+              fieldToShow={`lastName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={responsibleManager ?? ''}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              arrToSelect={arr__Workers ?? []}
+            />
+            <Typography
+              variant='body2'
+              sx={{
+                color: mainParticipantSum < 0 ? 'red' : 'green',
+              }}
+            >
+              {mainParticipantSum.toFixed(2)}%
+            </Typography>
+          </Stack>
+        </Grid>
+        <Grid sx={{ width: 200 }}>
+          <Stack
+            direction='row'
+            spacing={1}
+            // direction={{ xs: 'column', sm: 'row' }}
+          >
+            <MySelectAutoCompl
+              selectName={`responsibleWorker`}
+              selectLabel={`Отв.исполнитель`}
+              fieldToShow={`lastName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={responsibleWorker ?? ''}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              arrToSelect={arr__Workers ?? []}
+            />
+
+            <IconButton
+              onClick={() => onClickAddItem('/accountant/refdata/workers/add')}
+            >
+              <AddIcon color='success' sx={{ fontSize: 30 }} />
+            </IconButton>
+          </Stack>
         </Grid>
       </Grid>
 
